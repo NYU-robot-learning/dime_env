@@ -1,0 +1,134 @@
+<!-- 
+Bottle cap rotation adapte from the following: 
+======================================================
+    Model       :: ADROIT Pen
+ 
+    Mujoco      :: Advanced physics simulation engine
+        Source      : www.roboti.us
+        Version     : 1.50
+        Released    : 17Jan'17
+        
+    Author      :: Vikash Kumar
+        Contacts    : vikash@cs.washington.edu
+        Last edits  : 17Jan'17
+
+    Designed for :: Demo Augmented Policy Gradient (DAPG)
+
+    Copyright   :: Vikash Kumar
+        Licensed under Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+====================================================== 
+-->
+
+<mujoco model='Allegro-BottleCap(v1.0)'>
+    <compiler angle="radian" coordinate="local" meshdir="../stls/hand" texturedir="./textures"></compiler>
+    <option timestep="0.002" iterations="20" apirate="200" integrator="RK4">
+        <flag warmstart="enable"></flag>
+    </option>
+    
+
+    <default>
+        <joint armature=".1" damping="1" />
+        <geom conaffinity="1" condim="3" contype="1" friction="0.7 0.0 0.0" rgba="0.4 0.6 .8 1" solimp="0.9 0.95 0.001 0.5 2" solref="0.02 1"/>
+        <motor ctrllimited="true" ctrlrange="-1 2"/>
+    </default>
+
+    <size njmax="500" nconmax="100"/>
+    <include file="allegro_shared.xml"></include>
+    <asset>
+        <include file="allegro_shared_asset.xml"></include>
+
+        <texture name="texture:object" file="block.png" gridsize="3 4" gridlayout=".U..LFRB.D.."></texture>
+        <texture name="texture:hidden" file="block_hidden.png" gridsize="3 4" gridlayout=".U..LFRB.D.."></texture>
+
+        <material name="material:object" texture="texture:object" specular="1" shininess="0.3" reflectance="0"></material>
+        <material name="material:hidden" texture="texture:hidden" specular="1" shininess="0.3" reflectance="0"></material>
+        <material name="material:target" texture="texture:object" specular="1" shininess="0.3" reflectance="0" rgba="1 1 1 0.5"></material>
+        <!-- Check if these are all necessary -->
+        <texture type="cube" name="texgeom" builtin="flat" mark="cross" rgb1="0.3 0.6 0.5" rgb2="0.3 0.6 0.5" width="127" height="762" />
+        <texture type="cube" name="wood" file="wood.png" />
+        <texture type="2d" name="wood2d" file="wood.png" />
+        <texture type="cube" name="square" file="square.png" />
+        <texture type="cube" name="foil" file="silverRaw.png" />
+        <texture type="cube" name="woodb" file="woodb.png" />
+        <texture type="2d" name="groundplane" builtin="checker" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" width="100" height="100" />
+        <texture type="2d" name="marble2d" file="marble.png" />
+        <texture type="cube" name="marblecube" file="marble.png" />
+        <material name="MatColl" specular="1" shininess="0.3" reflectance="0.5" rgba="0.4 0.5 0.6 1" />
+        <material name="MatViz" specular="0.75" shininess="0.1" reflectance="0.5" rgba="0.9 0.7 0.5 1" />
+        <material name="MatGnd" specular="0.3" shininess="0.3" reflectance="0.3" rgba="0.5 0.55 0.5 1" />
+        <material name="object" texture="texgeom" />
+        <material name="groundplane" texture="groundplane" texrepeat="10 10" />
+        <material name="table2d" texture="marble2d" reflectance="0.3" rgba="0.8 0.8 0.8 1" />
+        <material name="tablecube" texture="marblecube" rgba="0.8 0.8 0.8 1" />
+        <material name="MatFoil" texture="foil" specular="1" shininess="0.3" rgba="0.9 0.9 0.9 1" />
+        <material name="MatPlane" specular="0.3" shininess="0.3" rgba="0.3 0.3 0.2 1" />
+        <material name="MatWood" texture="wood" texrepeat="3 3" specular="0.4" shininess="0.1" />
+        <material name="MatSquare" texture="square" specular="1" shininess="0.6" rgba="0.8 0.8 0.8 1" />
+        <material name="MatWoodR" texture="wood" specular="1" shininess="0.3" rgba="1 0.5 0.5 1" />
+        <material name="MatWoodG" texture="wood" specular="1" shininess="0.3" rgba="0.2 1 0.2 1" />
+        <material name="MatWoodB" texture="woodb" specular="1" shininess="0.3" />
+    </asset>
+
+    <!-- ======= WORLD ======= -->
+    <worldbody>
+        <light directional='false' diffuse='.7 .7 .7' specular='0.03 0.03 0.03' pos='-1 -1.0 4.0' dir='1 1.0 -4'/>
+        <geom name='ground' size="1.5 1.5 0.25" pos="0 0 -1" type="plane" contype="1" conaffinity="0" material="groundplane" />
+        <camera name="fixed" pos="0 -0.7 0.7" quat="0.92388 0.382683 0 0" />
+        <!-- Cameras for the VIL paper -->
+        <camera name="vil_camera" pos="0 -1.2 1.2" quat="0.92388 0.382683 0 0" />
+        <camera name="view_1" pos="-0.8 -0.8 0.8" euler="0.785 -0.785 -0.785" />
+        <camera name="view_2" pos="0 0.5 0.2" euler="-1.57 0 3.14" />
+        <camera name="view_3" pos="0 0.2 -0.2" euler="-2.35 0 3.14" />
+        <camera name="view_4" pos="0.8 -0.8 0.8" euler="0.785 0.785 0.785" />
+        <camera name="view_5" pos="0 -0.25 -0.4" euler="-3.2 0 3.14" />
+ 
+        <!-- ======= TABLE ======= -->
+        <body name="table">
+            <geom size="0.5 0.5 0.025" type="plane" material="table2d" /> <!-- Plane has better contacts -->
+            <!-- <geom size="0.45 0.45 0.025" pos="0 0 -0.025" type="box" material="tablecube" /> -->
+            <geom size="0.04 0.5" pos="0.4 0.4 -0.501" quat="0 1 0 0" type="cylinder" contype="0" conaffinity="0" />
+            <geom size="0.04 0.5" pos="-0.4 0.4 -0.501" quat="0 1 0 0" type="cylinder" contype="0" conaffinity="0" />
+            <geom size="0.04 0.5" pos="0.4 -0.4 -0.501" quat="0 1 0 0" type="cylinder" contype="0" conaffinity="0" />
+            <geom size="0.04 0.5" pos="-0.4 -0.4 -0.501" quat="0 1 0 0" type="cylinder" contype="0" conaffinity="0" />
+        </body>
+        
+        <!-- ======= MOCAP ======= -->
+        <body name="vive_tracker" pos="0 -0.35 0.25" mocap="true">
+            <inertial pos="0 0 0" mass="0.064" diaginertia="1.70667e-05 1.70667e-05 1.70667e-05" />
+            <geom size="0.03 0.01" type="cylinder" contype="0" conaffinity="0" group="3" rgba="0.3 0.3 0.3 0.3" />
+        </body>
+
+        <!-- ======= HAND ======= -->
+        <body name="forearm" pos="-1.0 -1.4 0.0">
+            <!-- ======= Adroit ======= -->
+            <include file="allegro_robot.xml"/>
+        </body>
+
+        <!-- ======= Bottle Cap ======= -->
+        <site name="eps_ball" type="sphere" pos="0.00 -0.2 0.05" size="0.075" rgba="0 0 0 0" />
+        <body name="Object" pos="-0.00 -0.15 0.03" user="1001 0 2003 27 0 0 0.06 0 0" euler="0 0 0">
+            <joint axis="0 0 1" name="OBJTr" pos="0 0 0" limited="false" type="hinge"></joint>
+            <!-- <joint name="OBJTx" pos="0 0 0" axis="1 0 0" type="slide" limited="false" damping="0" />
+            <joint name="OBJTy" pos="0 0 0" axis="0 1 0" type="slide" limited="false" damping="0" />
+            <joint name="OBJTz" pos="0 0 0" axis="0 0 1" type="slide" limited="false" damping="0" />
+            <joint name="OBJRx" pos="0 0 0" axis="1 0 0" limited="false" damping="0" />
+            <joint name="OBJRy" pos="0 0 0" axis="0 1 0" limited="false" damping="0" />
+            <joint name="OBJRz" pos="0 0 0" axis="0 0 1" limited="false" damping="0" /> -->
+            <geom name="handle1" type="capsule" size="0.015 0.065  0.015 " condim="4" rgba=".6 .6 .6 .6" density="1500" euler="1.5 0 0" />
+            <geom name="handle2" type="capsule" size="0.015 0.065  0.015 " condim="4" rgba=".6 .6 .6 .6" density="1500" euler="1.5 1.5 0" />
+
+            <site name="object_top" type="sphere" size="0.005" rgba="0.8 0.2 0.2 1" pos="0 0.045 0" />
+            <site name="object_bottom" type="sphere" size="0.005" rgba="0.2 0.8 0.2 1" pos="0 -0.045 0" />
+        </body>
+        
+        <body name="target" pos="0.2 -0.2 0.25" >
+            <site name="target_top" type="sphere" size="0.005" rgba="0.8 0.2 0.2 1" pos="0 0.045 0" />
+            <site name="target_bottom" type="sphere" size="0.005" rgba="0.2 0.8 0.2 1" pos="0 -0.045 0" />
+
+
+            <geom name="targethandle1" type="capsule" size="0.015 0.065  0.015 " condim="4" rgba=".6 .6 .6 .6" density="1500" euler="1.5 0 0" />
+            <geom name="targethandle2" type="capsule" size="0.015 0.065  0.015 " condim="4" rgba=".6 .6 .6 .6" density="1500" euler="1.5 1.5 0" />
+		    <!--<geom name="target" type="cylinder" size="0.055 0.015 0.045" condim="4" rgba=".6 .6 .6 .3" />-->
+        </body>
+    </worldbody>
+</mujoco>

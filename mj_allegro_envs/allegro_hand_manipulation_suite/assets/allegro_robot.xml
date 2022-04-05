@@ -1,0 +1,116 @@
+<!-- See LICENSE.md for legal notices. LICENSE.md must be kept together with this file. -->
+<mujoco>
+    <body name="robot0:hand" pos="1 1.25 0.15" euler="1.5708 0 1.5708">
+        <body name="robot0:palm">
+            <site name="robot0:palm_site" pos="1 1.25 0.15" group="3"></site>
+            <geom size="0.0204 0.0565 0.0475" friction="0.9 0 0" pos="-0.0093 0 -0.0475" mass="200" type="box"/>
+        </body>
+
+        <body name="robot0:ffknuckle" pos="0 0.0435 -0.001542" quat="0.999048 -0.0436194 0 0">
+            <inertial pos="0 0 0.0082" mass="0.0088396" diaginertia="7.55204e-07 4.8111e-07 8.40064e-07"/>
+            <joint name="robot0:FFJ3" pos="0 0 0" axis="0 0 1" limited="true" range="-10.47 0.47"/>
+            <geom size="0.0098 0.01375 0.0082" pos="0 0 0.0082" type="box"/>
+
+            <body name="robot0:ffproximal" pos="0 0 0.0164">
+                <inertial pos="0 0 0.027" mass="0.029106" diaginertia="8.90704e-06 8.00454e-06 2.76606e-06"/>
+                <joint name="robot0:FFJ2" pos="0 0 0" axis="0 1 0" limited="true" range="-10.196 10.61"/>
+                <geom name="robot0:C_ffproximal" size="0.0098 0.01375 0.027" pos="0 0 0.027" type="box"/>
+
+                <body name="robot0:ffmiddle" pos="0 0 0.054">
+                    <inertial pos="0 0 0.0192" mass="0.0206976" diaginertia="3.8477e-06 3.20592e-06 1.96698e-06"/>
+                    <joint name="robot0:FFJ1" pos="0 0 0" axis="0 1 0" limited="true" range="-10.174 10.709"/>
+                    <geom name="robot0:C_ffmiddle" size="0.0098 0.01375 0.0192" pos="0 0 0.0192" type="box"/>
+                    
+                    <body name="robot0:ffdistal" pos="0 0 0.0384">
+                        <inertial pos="0 0 0.0178175" mass="0.0216295" diaginertia="3.03714e-06 2.5909e-06 1.78459e-06"/>
+                        <joint name="robot0:FFJ0" pos="0 0 0" axis="0 1 0" limited="true" range="-0.227 10.618"/>
+                        <geom name="robot0:V_ffdistal" size="0.0098 0.01375 0.01335" pos="0 0 0.01335" type="box"/>
+                        <geom name="robot0:C_ffdistal" size="0.012" pos="0 0 0.0267" rgba="0.9 0.9 0.9 1"/>
+                        <site name="robot0:S_fftip" pos="0 0 0.026" group="3"></site>
+                        <!-- <site class="robot0:D_Touch" name="robot0:Tch_fftip"></site>         -->
+                    </body>
+                </body>
+            </body>
+        </body>
+
+        <body name="robot0:mfknuckle"pos="0 0 0.0007">
+            <inertial pos="0 0 0.0082" mass="0.0088396" diaginertia="7.55204e-07 4.8111e-07 8.40064e-07"/>
+            <joint name="robot0:MFJ3" pos="0 0 0" axis="0 0 1" limited="true" range="-0.47 0.47"/>
+            <geom size="0.0098 0.01375 0.0082" pos="0 0 0.0082" type="box"/>
+            
+            <body name="robot0:mfproximal" pos="0 0 0.0164">
+                <inertial pos="0 0 0.027" mass="0.029106" diaginertia="8.90704e-06 8.00454e-06 2.76606e-06"/>
+                <joint name="robot0:MFJ2" pos="0 0 0" axis="0 1 0" limited="true" range="-0.196 10.61"/>
+                <geom name="robot0:C_mfproximal" size="0.0098 0.01375 0.027" pos="0 0 0.027" type="box"/>
+
+                <body name="robot0:mfmiddle" pos="0 0 0.054">
+                    <inertial pos="0 0 0.0192" mass="0.0206976" diaginertia="3.8477e-06 3.20592e-06 1.96698e-06"/>
+                    <joint name="robot0:MFJ1" pos="0 0 0" axis="0 1 0" limited="true" range="-0.174 1.709"/>
+                    <geom name="robot0:C_mfmiddle" size="0.0098 0.01375 0.0192" pos="0 0 0.0192" type="box"/>
+
+                <body name="robot0:mfdistal" pos="0 0 0.0384">
+                        <inertial pos="0 0 0.0178175" mass="0.0216295" diaginertia="3.03714e-06 2.5909e-06 1.78459e-06"/>
+                        <joint name="robot0:MFJ0" pos="0 0 0" axis="0 1 0" limited="true" range="-0.227 1.618"/>
+                        <geom size="0.0098 0.01375 0.01335" pos="0 0 0.01335" type="box"/>
+                        <geom name="robot0:C_mfdistal" size="0.012" pos="0 0 0.0267" rgba="0.9 0.9 0.9 1"/>
+                        <site name="robot0:S_mftip" pos="0 0 0.026" group="3"></site>
+                    </body>
+                </body>
+            </body>
+        </body>
+
+        <body name="robot0:lfknuckle" pos="0 -0.0435 -0.001542" quat="0.999048 0.0436194 0 0">
+            <inertial pos="0 0 0.0082" mass="0.0088396" diaginertia="7.55204e-07 4.8111e-07 8.40064e-07"/>
+            <joint name="robot0:LFJ3" pos="0 0 0" axis="0 0 1" limited="true" range="-0.47 10.47"/>
+            <geom size="0.0098 0.01375 0.0082" pos="0 0 0.0082" type="box"/>
+
+                <body name="robot0:lfproximal" pos="0 0 0.0164">
+                    <inertial pos="0 0 0.027" mass="0.029106" diaginertia="8.90704e-06 8.00454e-06 2.76606e-06"/>
+                    <joint name="robot0:LFJ2" pos="0 0 0" axis="0 1 0" limited="true" range="-0.196 10.61"/>
+                    <geom name="robot0:C_lfproximal" size="0.0098 0.01375 0.027" pos="0 0 0.027" type="box"/>
+
+                        <body name="robot0:lfmiddle" pos="0 0 0.054">
+                            <inertial pos="0 0 0.0192" mass="0.0206976" diaginertia="3.8477e-06 3.20592e-06 1.96698e-06"/>
+                            <joint name="robot0:LFJ1" pos="0 0 0" axis="0 1 0" limited="true" range="-0.174 10.709"/>
+                            <geom name="robot0:C_lfmiddle" size="0.0098 0.01375 0.0192" pos="0 0 0.0192" type="box"/>
+
+                            <body name="robot0:lfdistal" pos="0 0 0.0384">
+                                <inertial pos="0 0 0.0178175" mass="0.0216295" diaginertia="3.03714e-06 2.5909e-06 1.78459e-06"/>
+                                <joint name="robot0:LFJ0" pos="0 0 0" axis="0 1 0" limited="true" range="-0.227 10.618"/>
+                                <geom name="robot0:V_lfdistal" size="0.0098 0.01375 0.01335" pos="0 0 0.01335" type="box"/>
+                                <geom name="robot0:C_lfdistal" size="0.012" pos="0 0 0.0267" rgba="0.9 0.9 0.9 1"/>
+                                <site name="robot0:S_lftip" pos="0 0 0.026" group="3"></site>
+                            <!-- <site class="robot0:D_Touch" name="robot0:Tch_lftip"></site> -->
+                    </body>
+                </body>
+            </body>
+        </body>
+
+        <body name="robot0:thbase" pos="-0.0182 0.019333 -0.045987" quat="0.477714 -0.521334 -0.521334 -0.477714">
+            <inertial pos="-0.0179 0.009 0.0145" mass="0.0553826" diaginertia="1.48898e-05 1.54697e-05 1.12502e-05"/>
+            <joint name="robot0:THJ3" pos="0 0 0" axis="-1 0 0" limited="true" range="-2 5"/>
+            <geom size="0.0179  0.017 0.02275" pos="-0.0179 0.009 0.0145" type="box"/>
+
+            <body name="robot0:thproximal" pos="-0.027 0.005 0.0399">
+                <inertial pos="0 0 0.00885" mass="0.0095403" diaginertia="8.50311e-07 5.5449e-07 9.06654e-07"/>
+                <joint name="robot0:THJ2" pos="0 0 0" axis="0 0 1" limited="true" range="-2 2.163"/>
+                <geom name="robot0:C_thproximal" size="0.0098 0.01375 0.00885" pos="0 0 0.00885" type="box"/>
+
+                <body name="robot0:thmiddle" pos="0 0 0.0177">
+                    <inertial pos="0 0 0.0257" mass="0.0277046" diaginertia="7.8455e-06 6.98645e-06 2.63288e-06"/>
+                    <joint name="robot0:THJ1" pos="0 0 0" axis="0 1 0" limited="true" range="-2 2.644"/>
+                    <geom name="robot0:C_thmiddle" size="0.0098 0.01375 0.0257" pos="0 0 0.0257" type="box"/>
+                    
+                    <body name="robot0:thdistal" pos="0 0 0.0514">
+                        <inertial pos="0 0 0.0262465" mass="0.0300379" diaginertia="7.71099e-06 7.00403e-06 2.58367e-06"/>
+                        <joint name="robot0:THJ0" pos="0 0 0" axis="0 1 0" limited="true" range="-2 2.719"/>
+                        <geom name="robot0:V_thdistal" size="0.0098 0.01375 0.02115" pos="0 0 0.02115" type="box"/>
+                        <geom name="robot0:C_thdistal" size="0.012" pos="0 0 0.0423" rgba="0.9 0.9 0.9 1"/>
+                        <site name="robot0:S_thtip" pos="0 0 0.0275" group="3"></site>
+                        <!-- <site class="robot0:D_Touch" name="robot0:Tch_thtip"></site> -->
+                    </body>
+                </body>
+            </body>
+        </body>
+    </body>
+</mujoco>
